@@ -12,4 +12,5 @@ export default new Router({
       component: HelloWorld,
     },
   ],
+  linkExactActiveClass: 'is-active',
 });
