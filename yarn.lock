@@ -630,7 +630,7 @@ babel-plugin-transform-es2015-modules-amd@^6.22.0, babel-plugin-transform-es2015
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
 
-babel-plugin-transform-es2015-modules-commonjs@^6.23.0, babel-plugin-transform-es2015-modules-commonjs@^6.24.1:
+babel-plugin-transform-es2015-modules-commonjs@^6.23.0, babel-plugin-transform-es2015-modules-commonjs@^6.24.0, babel-plugin-transform-es2015-modules-commonjs@^6.24.1:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-modules-commonjs/-/babel-plugin-transform-es2015-modules-commonjs-6.26.0.tgz#0d8394029b7dc6abe1a97ef181e00758dd2e5d8a"
   dependencies:
@@ -3537,6 +3537,13 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
+kindergarten@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/kindergarten/-/kindergarten-1.5.2.tgz#73d344176a86cc4dbe1dd7e6d07152a0a218bfa6"
+  dependencies:
+    babel-plugin-transform-es2015-modules-commonjs "^6.24.0"
+    lodash "^4.17.4"
+
 last-call-webpack-plugin@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/last-call-webpack-plugin/-/last-call-webpack-plugin-2.1.2.tgz#ad80c6e310998294d2ed2180a68e9589e4768c44"
@@ -6053,6 +6060,12 @@ vm-browserify@0.0.4:
 vue-hot-reload-api@^2.2.0:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.2.4.tgz#683bd1d026c0d3b3c937d5875679e9a87ec6cd8f"
+
+vue-kindergarten@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/vue-kindergarten/-/vue-kindergarten-0.3.3.tgz#08a18b8e82c0230888c0455d698a5d5cc53d2539"
+  dependencies:
+    kindergarten "^1.5.2"
 
 vue-loader@^13.3.0:
   version "13.7.0"
