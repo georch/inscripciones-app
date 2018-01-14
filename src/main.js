@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/fontawesome-free-solid';
 
 import Vue from 'vue';
+import axios from 'axios';
 import App from './App';
 import router from './router';
 
@@ -16,6 +17,10 @@ fontawesome.library.add(faEnvelope, faLock);
 require('./assets/sass/main.scss');
 
 Vue.config.productionTip = false;
+
+// Set Axios default settings
+axios.defaults.baseURL = 'http://localhost:8020/';
+axios.defaults.headers.common['content-type'] = 'application/x-www-form-urlencoded';
 
 /* eslint-disable no-new */
 new Vue({
