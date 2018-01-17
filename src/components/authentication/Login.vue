@@ -5,22 +5,22 @@
       <div class="notification is-danger" v-if="infoError">
         No fue posible entrar. Por favor, intente de nuevo.
       </div>
-      <div class="field">
-        <p class="control has-icons-left">
-          <input v-model.trim="email" class="input" type="email" placeholder="E-mail" required>
-          <span class="icon is-small is-left">
-            <i class="fas fa-envelope"></i>
-          </span>
-        </p>
-      </div>
-      <div class="field">
-        <p class="control has-icons-left">
-          <input  v-model.trim="password" class="input" type="password" placeholder="Password" required>
-          <span class="icon is-small is-left">
-            <i class="fas fa-lock"></i>
-          </span>
-        </p>
-      </div>
+      <InputField
+        icon="fa-envelope"
+        name="email"
+        placeholder="E-mail"
+        rules="required|email"
+        type="email"
+        v-model="email"
+      />
+      <InputField
+        icon="fa-lock"
+        name="password"
+        placeholder="Password"
+        rules="required"
+        type="password"
+        v-model="password"
+      />
       <div class="field">
         <p class="control">
           <button class="button is-link is-medium is-fullwidth">
@@ -33,12 +33,26 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import axios from 'axios';
+import es from 'vee-validate/dist/locale/es';
+import VeeValidate, { Validator } from 'vee-validate';
+import InputField from '@/components/forms/InputField';
 import router from '@/router';
 import store from '@/store';
 
+Validator.localize('es', es);
+Vue.use(VeeValidate, {
+  aria: true,
+  inject: false,
+});
+
 export default {
   name: 'Login',
+  inject: ['$validator'],
+  components: {
+    InputField,
+  },
   data() {
     return {
       infoError: false,
@@ -54,18 +68,26 @@ export default {
   methods: {
     login() {
       this.infoError = false;
-
-      axios.post('auth/login', {
-        email: this.email,
-        password: this.password,
-      }).then((response) => {
-        localStorage.setItem('token', response.data.token);
-        store.commit('LOGIN_USER');
-        router.push('/');
-      }).catch(() => {
-        this.infoError = true;
-        this.password = '';
-      });
+      this.$validator
+        .validateAll()
+        .then((r) => {
+          if (r === true) {
+            axios.post('auth/login', {
+              email: this.email,
+              password: this.password,
+            }).then((response) => {
+              localStorage.setItem('token', response.data.token);
+              store.commit('LOGIN_USER');
+              router.push('/');
+            }).catch(() => {
+              this.infoError = true;
+              this.password = '';
+            });
+          }
+        })
+        .catch(() => {
+          this.infoError = true;
+        });
     },
   },
 };
