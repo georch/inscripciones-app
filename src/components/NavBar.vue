@@ -8,6 +8,9 @@
         <router-link v-if="isLogged" class="navbar-item is-tab" to="/logout" exact>
           Terminar sesión
         </router-link>
+        <router-link v-if="!isLogged" class="navbar-item is-tab" to="/register" exact>
+          Crear usuario
+        </router-link>
       </div>
     </div>
   </nav>
