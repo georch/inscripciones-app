@@ -8,13 +8,13 @@
       <div class="field">
         <div :class="classControl" class="control">
           <input
-            :v-model="name"
             v-validate="rules"
             :data-vv-as="vvAS"
             :name="name"
             :placeholder="placeholder"
             :class="classInput"
             :type="type"
+            @input="$emit('input', $event.target.value)"
             class="input"
           >
           <span v-if="icon" class="icon is-left">
