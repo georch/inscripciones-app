@@ -39,7 +39,6 @@ import es from 'vee-validate/dist/locale/es';
 import VeeValidate, { Validator } from 'vee-validate';
 import InputField from '@/components/forms/InputField';
 import router from '@/router';
-import store from '@/store';
 
 Validator.localize('es', es);
 Vue.use(VeeValidate, {
@@ -61,7 +60,7 @@ export default {
     };
   },
   beforeCreate() {
-    if (store.state.isLogged) {
+    if (this.$store.state.isLogged) {
       router.push('/');
     }
   },
@@ -77,7 +76,7 @@ export default {
               password: this.password,
             }).then((response) => {
               localStorage.setItem('token', response.data.token);
-              store.commit('LOGIN_USER');
+              this.$store.commit('LOGIN_USER');
               router.push('/');
             }).catch(() => {
               this.infoError = true;

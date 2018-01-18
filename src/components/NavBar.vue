@@ -17,14 +17,12 @@
 </template>
 
 <script>
-import store from '@/store';
-
 export default {
   name: 'NavBar',
 
   computed: {
     isLogged() {
-      return store.state.isLogged;
+      return this.$store.state.isLogged;
     },
   },
 };

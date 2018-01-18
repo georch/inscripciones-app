@@ -71,7 +71,6 @@ import es from 'vee-validate/dist/locale/es';
 import VeeValidate, { Validator } from 'vee-validate';
 import InputField from '@/components/forms/InputField';
 import router from '@/router';
-import store from '@/store';
 
 Validator.localize('es', es);
 Vue.use(VeeValidate, {
@@ -95,7 +94,7 @@ export default {
     };
   },
   beforeCreate() {
-    if (store.state.isLogged) {
+    if (this.$store.state.isLogged) {
       router.push('/');
     }
   },
