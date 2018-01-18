@@ -10,6 +10,7 @@ import Vue from 'vue';
 import axios from 'axios';
 import App from './App';
 import router from './router';
+import store from './store';
 
 fontawesome.library.add(faEnvelope, faLock);
 
@@ -26,6 +27,7 @@ axios.defaults.headers.common['content-type'] = 'application/x-www-form-urlencod
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App },
 });
