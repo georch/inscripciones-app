@@ -38,7 +38,6 @@ import axios from 'axios';
 import es from 'vee-validate/dist/locale/es';
 import VeeValidate, { Validator } from 'vee-validate';
 import InputField from '@/components/forms/InputField';
-import router from '@/router';
 
 Validator.localize('es', es);
 Vue.use(VeeValidate, {
@@ -61,32 +60,29 @@ export default {
   },
   beforeCreate() {
     if (this.$store.state.isLogged) {
-      router.push('/');
+      this.$router.push('/');
     }
   },
   methods: {
-    login() {
+    async login() {
       this.infoError = false;
-      this.$validator
-        .validateAll()
-        .then((r) => {
-          if (r === true) {
-            axios.post('auth/login', {
-              email: this.email,
-              password: this.password,
-            }).then((response) => {
-              localStorage.setItem('token', response.data.token);
-              this.$store.commit('LOGIN_USER');
-              router.push('/');
-            }).catch(() => {
-              this.infoError = true;
-              this.password = '';
-            });
-          }
-        })
-        .catch(() => {
+      const validationPass = await this.$validator.validateAll();
+
+      if (validationPass) {
+        try {
+          const res = await axios.post('auth/login', {
+            email: this.email,
+            password: this.password,
+          });
+
+          localStorage.setItem('token', res.data.token);
+          this.$store.commit('LOGIN_USER');
+          this.$router.push('/');
+        } catch (err) {
+          this.password = '';
           this.infoError = true;
-        });
+        }
+      }
     },
   },
 };

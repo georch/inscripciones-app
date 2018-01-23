@@ -16,6 +16,7 @@
             :type="type"
             @input="$emit('input', $event.target.value)"
             class="input"
+            :value="value"
           >
           <span v-if="icon" class="icon is-left">
             <i :class="icon" class="fas"></i>
@@ -54,6 +55,7 @@ export default {
     'size',
     'type',
     'vvAS',
+    'value',
   ],
   computed: {
     classControl() {
