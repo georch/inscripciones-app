@@ -70,7 +70,6 @@ import axios from 'axios';
 import es from 'vee-validate/dist/locale/es';
 import VeeValidate, { Validator } from 'vee-validate';
 import InputField from '@/components/forms/InputField';
-import router from '@/router';
 
 Validator.localize('es', es);
 Vue.use(VeeValidate, {
@@ -95,34 +94,29 @@ export default {
   },
   beforeCreate() {
     if (this.$store.state.isLogged) {
-      router.push('/');
+      this.$router.push('/');
     }
   },
   methods: {
-    register() {
+    async register() {
       this.infoError = false;
-      this.$validator
-        .validateAll()
-        .then((response) => {
-          if (response === true) {
-            axios.post('auth/register', {
-              nombre: this.nombre,
-              email: this.email,
-              password: this.password,
-            })
-            .then(() => {
-              router.push('/');
-            })
-            .catch(() => {
-              this.infoError = true;
-              this.password = '';
-              this.password_confirmation = '';
-            });
-          }
-        })
-        .catch(() => {
+
+      const validationPass = await this.$validator.validateAll();
+
+      if (validationPass) {
+        try {
+          await axios.post('auth/register', {
+            nombre: this.nombre,
+            email: this.email,
+            password: this.password,
+          });
+          this.$router.push('/');
+        } catch (err) {
           this.infoError = true;
-        });
+          this.password = '';
+          this.password_confirmation = '';
+        }
+      }
     },
   },
 };
