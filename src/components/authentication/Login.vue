@@ -2,9 +2,6 @@
   <div class="login">
     <h2 class="title">Ingresar</h2>
     <form class="login-forma" v-on:submit.prevent="login">
-      <div class="notification is-danger" v-if="infoError">
-        No fue posible entrar. Por favor, intente de nuevo.
-      </div>
       <InputField
         icon="fa-envelope"
         name="email"
@@ -53,7 +50,6 @@ export default {
   },
   data() {
     return {
-      infoError: false,
       email: '',
       password: '',
     };
@@ -65,7 +61,7 @@ export default {
   },
   methods: {
     async login() {
-      this.infoError = false;
+      this.$store.commit('removeAllNotifications');
       const validationPass = await this.$validator.validateAll();
 
       if (validationPass) {
@@ -80,8 +76,10 @@ export default {
           this.$router.push('/');
         } catch (err) {
           this.password = '';
-          this.infoError = true;
+          this.$error('No fue posible entrar. Por favor, intente de nuevo.');
         }
+      } else {
+        this.$error('Revise los campos obligatorios.');
       }
     },
   },
