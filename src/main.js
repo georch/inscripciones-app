@@ -11,6 +11,7 @@ import axios from 'axios';
 import App from './App';
 import router from './router';
 import store from './store';
+import notificationMixin from './mixins/notificationMixin';
 
 fontawesome.library.add(faEnvelope, faLock);
 
@@ -22,6 +23,8 @@ Vue.config.productionTip = false;
 // Set Axios default settings
 axios.defaults.baseURL = 'http://localhost:8020/';
 axios.defaults.headers.common['content-type'] = 'application/x-www-form-urlencoded';
+
+Vue.mixin(notificationMixin);
 
 /* eslint-disable no-new */
 new Vue({
