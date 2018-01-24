@@ -3,6 +3,12 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+const actions = {
+  deleteNotification(state, notification) {
+    state.notifications.splice(state.notifications.indexOf(notification), 1);
+  },
+};
+
 const mutations = {
   LOGIN_USER(state) {
     state.isLogged = true;
@@ -17,7 +23,14 @@ const mutations = {
   },
 
   removeNotification(state, notification) {
-    state.notifications.splice(state.notifications.indexOf(notification), 1);
+    actions.deleteNotification(state, notification);
+  },
+
+  removeAllNotifications(state) {
+    state.notifications.forEach((notification) => {
+      actions.deleteNotification(state, notification);
+    },
+  );
   },
 };
 
@@ -30,4 +43,5 @@ export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state,
   mutations,
+  actions,
 });
