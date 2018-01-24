@@ -11,10 +11,19 @@ const mutations = {
   LOGOUT_USER(state) {
     state.isLogged = false;
   },
+
+  addNotification(state, notification) {
+    state.notifications.push(notification);
+  },
+
+  removeNotification(state, notification) {
+    state.notifications.splice(state.notifications.indexOf(notification), 1);
+  },
 };
 
 const state = {
   isLogged: !!localStorage.getItem('token'),
+  notifications: [],
 };
 
 export default new Vuex.Store({
