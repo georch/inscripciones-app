@@ -3,9 +3,6 @@
     <div class="forma">
       <h2 class="title">Crear cuenta</h2>
       <form v-on:submit.prevent="register" novalidate>
-        <div class="notification is-danger" v-if="infoError">
-          No fue posible crear la cuenta. Por favor, intente de nuevo.
-        </div>
         <div class="subtitle">Datos personales</div>
         <InputField
           name="nombre"
@@ -85,7 +82,6 @@ export default {
   },
   data() {
     return {
-      infoError: false,
       nombre: '',
       email: '',
       password: '',
@@ -99,8 +95,7 @@ export default {
   },
   methods: {
     async register() {
-      this.infoError = false;
-
+      this.$store.commit('removeAllNotifications');
       const validationPass = await this.$validator.validateAll();
 
       if (validationPass) {
@@ -112,10 +107,12 @@ export default {
           });
           this.$router.push('/');
         } catch (err) {
-          this.infoError = true;
           this.password = '';
           this.password_confirmation = '';
+          this.$error('No fue posible crear la cuenta. Por favor, intente de nuevo.');
         }
+      } else {
+        this.$error('Revise los campos obligatorios.');
       }
     },
   },
