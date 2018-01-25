@@ -1,6 +1,6 @@
 export default {
   methods: {
-    $notify(options) {
+    $notify(options = {}) {
       this.$store.commit(
         'addNotification',
         Object.assign({
