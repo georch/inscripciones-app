@@ -8,21 +8,22 @@
 <script>
 export default {
   name: 'Notification',
-  props: [
-    'notification',
-  ],
+  props: {
+    notification: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       timer: null,
     };
   },
   created() {
-    const timeout = Object.prototype.hasOwnProperty.call(this.notification, 'timeout') ? this.notification.timeout : true;
+    const timeout = this.notification.timeout !== undefined ? this.notification.timeout : true;
     if (timeout) {
       const delay = this.notification.delay || 4000;
-      this.timer = setTimeout(() => {
-        this.triggerClose(this.notification);
-      }, delay);
+      this.timer = setTimeout(this.triggerClose, delay);
     }
   },
   methods: {
